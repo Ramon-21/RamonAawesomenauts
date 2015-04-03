@@ -28,13 +28,18 @@ game.PlayerEntity = me.Entity.extend({
             //me.timer.tick makes the movement look clear and smooth
             this.body.vel.x += this.body.accel.x * me.timer.tick;
             this.flipX(true);
-        }else{
+            this.facing = "right";
+        }else if(me.input.isKeyPressed("left")){
+            this.facing ="left";
+            this.body.vel.x -= this.body.accel.x * me.timer.tick;
+            this.flipX(false);
+        }else{    
             this.body.vel.x = 0;
         }
         
+        if(me.input.isKeyPressed("jump")){  
         
-        
-          if(me.input.isKeyPressed("attack")){
+        if(me.input.isKeyPressed("attack")){
             if(!this.renderable.isCurrentAnimation("attack")){
                 console.log(!this.renderable.isCurrentAnimation("attack"));
                 //sets the current animation to attack and as soon as its over
