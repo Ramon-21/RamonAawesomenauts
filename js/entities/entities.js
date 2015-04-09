@@ -11,6 +11,7 @@ game.PlayerEntity = me.Entity.extend({
                 }
         }]);    
         this.body.setVelocity(5, 20);
+        //Keeps track of your charictors movement/direction
         this.facing = "right";
         me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
         
@@ -27,8 +28,10 @@ game.PlayerEntity = me.Entity.extend({
             //setVelocity() and multipying it by me.timer.tick
             //me.timer.tick makes the movement look clear and smooth
             this.body.vel.x += this.body.accel.x * me.timer.tick;
+            this.facing = "right";
             this.flipX(true);
         }else if(me.input.isKeyPressed("left")){
+            this.facing = "left";
             this.body.vel.x -= this.body.accel.x * me.timer.tick;
             this.flipX(false);
         }else{    
@@ -74,6 +77,7 @@ game.PlayerEntity = me.Entity.extend({
             }
         }
         
+        me.collision.check(this, true, this.collideHandler.bind(this), this);
         this.body.update(delta);
         
         this._super(me.Entity, "update", [delta]);
