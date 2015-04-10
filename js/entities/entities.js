@@ -80,8 +80,27 @@ game.PlayerEntity = me.Entity.extend({
         me.collision.check(this, true, this.collideHandler.bind(this), this);
         this.body.update(delta);
         
+        
+        
+        
         this._super(me.Entity, "update", [delta]);
         return true;
+    },
+    
+    collideHandler: function(response){
+        if(response.b.type==='EnemyBaseEntinty'){
+            var ydif = this.pos.y - response.b.pos.y;
+            var xdif = this.pos.x -response.b.pos.x;
+            
+            console.log("xdif " + xdif + "ydif " + ydif);
+            
+            if(xdif<-35 && this.facing==='right'){
+                this.body.vel.x = 0;
+                this.pos.x = this.pos.x -1;
+            }else if(){
+                
+            }
+        }
     }
 }); 
 
